@@ -1,0 +1,27 @@
+/node_modules/
+
+# OS X
+.DS_Store
+
+# Output files
+/build
+
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# Config file
+config.json5
+
+# XLSX files
+*.csv
+*.xlsx
+
+# IDEs and editors
+/.vscode
+/.idea
+
+# Project configuration
+/package-lock.json
