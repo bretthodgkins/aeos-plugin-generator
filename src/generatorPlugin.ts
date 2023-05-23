@@ -27,11 +27,11 @@ export class PluginGeneratorPlugin implements AeosPlugin {
         "examples": [
           {
             prompt: "create facebook plugin",
-            output: [ `plugin-generator:generate plugin "facebook" with prompt "Create a plugin with all the most common Facebook APIs"` ],
+            output: [ `plugin-generator:generate plugin "aeos-facebook" with prompt "Create a plugin with all the most common Facebook APIs"` ],
           },
           {
             prompt: "can you build a plugin that automates the browser",
-            output: [ `plugin-generator:generate plugin "puppeteer" with prompt "Create a puppeteer plugin that provides commands for the most common features of the Puppeteer library"` ],
+            output: [ `plugin-generator:generate plugin "aeos-puppeteer" with prompt "Create a puppeteer plugin that provides commands for the most common features of the Puppeteer library"` ],
           },
         ],
       },

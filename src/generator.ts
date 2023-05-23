@@ -37,6 +37,15 @@ export class PluginGenerator {
     const writer = fs.createWriteStream(outputPath);
   
     response.data.pipe(writer);
+
+    // Await for file download to finish
+    await new Promise((resolve, reject) => {
+      writer.on('finish', () => {
+        writer.close();  // close the write stream
+      });
+      response.data.on('end', resolve);  // resolve the promise when download finishes
+      writer.on('error', reject);
+    });
   
     // Extract the zip
     await this.extractZipFile(outputPath, process.cwd());

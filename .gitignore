@@ -6,6 +6,9 @@
 # Output files
 /build
 
+# Test files
+/test-data
+
 # Log files
 *.log
 
