@@ -1,7 +1,7 @@
 {
   "name": "@bhodgk/aeos-plugin-generator",
   "version": "0.0.1",
-  "description": "Aeos Plugin Generator - Generate a plugin for Aeos from a single description",
+  "description": "Aeos Plugin Generator - Generate a plugin for Aeos using a single prompt",
   "main": "build/generatorPlugin.js",
   "scripts": {
     "start": "ts-node src/app.ts",

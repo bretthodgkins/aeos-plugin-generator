@@ -11,7 +11,7 @@ import pluginGenerator from './generator';
 
 export class PluginGeneratorPlugin implements AeosPlugin {
   name = 'Plugin Generator';
-  description = 'Generate a plugin for Aeos from a single description';
+  description = 'Generate a plugin for Aeos using a single prompt';
   version = '0.0.1';
 
   private commands: Command[];
