@@ -21,6 +21,8 @@ export class PluginGenerator {
 
     await this.downloadAndExtractRepo('bretthodgkins', 'aeos-plugin-template', name);
 
+    await this.updatePackageJson(fullPath, name, prompt);
+
     return true;
   }
 
@@ -63,6 +65,15 @@ export class PluginGenerator {
       console.error('Error occurred while extracting zip file', err);
       throw err;
     }
+  }
+
+  async updatePackageJson(dir: string, name: string, description: string) {
+    let packageJson = require(path.resolve(dir, 'package.json'));
+    packageJson.name = name;
+    packageJson.description = description;
+    packageJson.version = '0.0.1';
+    packageJson.author = 'Aeos Plugin Generator';
+    fs.writeFileSync(path.resolve(dir, 'package.json'), JSON.stringify(packageJson, null, 2));
   }
 
 }
