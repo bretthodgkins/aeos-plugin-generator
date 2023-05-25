@@ -9,20 +9,21 @@ import {
   CommandResult,
   chatCompletion,
   logger,
-} from '@bhodgk/aeos'
+} from '@bhodgk/aeos';
+
+import * as prompts from './prompts';
 
 export class PluginGenerator {
   async generatePlugin(name: string, prompt: string): Promise<boolean> {
-    const fullPath = path.resolve(name);
+    const fullPath = path.resolve(process.cwd(), name);
     if (fs.existsSync(fullPath)) {
       logger.log(`Directory ${fullPath} already exists`);
       return false;
     }
 
     await this.downloadAndExtractRepo('bretthodgkins', 'aeos-plugin-template', name);
-
     await this.updatePackageJson(fullPath, name, prompt);
-
+    await this.generatePluginFromPrompt(fullPath, name, prompt);
     return true;
   }
 
@@ -74,6 +75,20 @@ export class PluginGenerator {
     packageJson.version = '0.0.1';
     packageJson.author = 'Aeos Plugin Generator';
     fs.writeFileSync(path.resolve(dir, 'package.json'), JSON.stringify(packageJson, null, 2));
+  }
+
+  async generatePluginFromPrompt(dir: string, name: string, prompt: string): Promise<string> {
+    const messages = [
+      ...prompts.PLUGIN_INDEX_PROMPT_MESSAGES,
+      {
+        role: 'user',
+        content: `Please generate a valid index.ts file for a plugin called ${name} using the following prompt: ${prompt}`,
+      },
+    ] as ChatCompletionRequestMessage[];
+
+    const output = await chatCompletion.createChatCompletion(messages, 2000, 0.7);
+    fs.writeFileSync(path.resolve(dir, 'src', 'index.ts'), output);
+    return output;
   }
 
 }
